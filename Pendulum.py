@@ -71,6 +71,6 @@ fig = plt.figure()
 ax = plt.axes()
 animate = animation.FuncAnimation(fig, animate_func, interval = 20, frames = len(theta))
 Writer = animation.writers['ffmpeg']
-writer = Writer(fps=30, metadata=dict(artist='Me'), bitrate=1800)
+writer = Writer(fps=30, metadata=dict(artist='rossy-awan'), bitrate=1800)
 animate.save('pendulum_animation.mp4', writer=writer)
 plt.show()
