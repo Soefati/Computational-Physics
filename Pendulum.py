@@ -21,7 +21,7 @@ sol = odeint(pendulum, [theta0, 0], t, args=(length,)) # ODEInt Numerical Soluti
 # Angle and Angular Velocity Data from Numerical Solutions
 theta = sol[:, 0]
 omega = sol[:, 1]
-    
+
 # Pendulum Position on X and Y Coordinates
 x = length * sin(theta)
 y = -length * cos(theta)
@@ -32,10 +32,10 @@ for i in range(1, len(theta)):
         t_up = t[i]
     elif theta[i] <= 0 and theta[i-1] > 0:
         t_down = t[i]
-    
+
 period = 2 * (t_down - t_up) # 2πdt/dθ
 print(f'Period: {abs(period)}')
-        
+
 # Pendulum Kinematics Visualization
 plt.plot(t, theta, label = 'Angle (rad)')
 plt.plot(t, omega, label = 'Angular Velocity (rad/s)')
@@ -44,7 +44,7 @@ plt.title('Pendulum Kinematics')
 #plt.grid(True)
 plt.legend(loc = "best")
 plt.show()
-    
+
 # Pendulum Trajectory
 plt.plot(x, y)
 plt.xlabel('X')
@@ -69,5 +69,8 @@ def animate_func(i):
 
 fig = plt.figure()
 ax = plt.axes()
-animate = animation.FuncAnimation(fig, animate_func, interval = 10, frames = len(theta))
+animate = animation.FuncAnimation(fig, animate_func, interval = 20, frames = len(theta))
+Writer = animation.writers['ffmpeg']
+writer = Writer(fps=30, metadata=dict(artist='Me'), bitrate=1800)
+animate.save('pendulum_animation.mp4', writer=writer)
 plt.show()
